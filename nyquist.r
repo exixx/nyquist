@@ -11,27 +11,30 @@ num_samp <- 5000
 num_freq <- 1024
 
 a_frame <- make_config(num_samp, num_freq)
-az <- seq(0, 359.5, length.out = num_samp)
+
+az_deg <- seq(0, 359.5, length.out = num_samp)
+az_rad <- seq(0, 2 * pi, length.out = num_samp)
+
 drive_func <- function (amp, omega, ttt) {
-  a_line <-  amp *cos((omega* pi/25)* ttt )
+  a_line <-  amp *cos((omega* pi/85)* ttt )
 }
 
 amps <- 1:num_freq
 
 for( ii in amps ) {
-  a_frame[ii] <- drive_func(ii,5, az)
+  a_frame[ii] <- drive_func(ii,5, az_deg)
   
 }
 jj <- 1:num_samp
 a_frame[jj,] = a_frame[jj,] *jj/200
 
-colrs <- rainbow(length(num_freq))
+colrs <- rainbow(num_freq)
 
 file_name = "Test Sines"
 plotaline <- function(xx) {plot(1:num_samp,a_frame[,xx], 
                                 type = "l",
-                                col = "red",#colrs[xx],
-                                ylim = range(a_frame[,xx])*(1/2),
+                                col = colrs[xx],
+                                ylim = range(a_frame[,xx]),#*(3/5),
                                 ylab = "Some Bullshit Magnitude (dB Bullshit)",
                                 xlab = "Azimuth (degrees or something))",
                                 main = paste("Test Plot", file_name),
@@ -39,10 +42,10 @@ plotaline <- function(xx) {plot(1:num_samp,a_frame[,xx],
                                 axes = FALSE
 )}
 
-a_line <- function(xx) {lines(1:num_samp,a_frame[,xx], 
+add_a_line <- function(xx) {lines(1:num_samp,a_frame[,xx], 
                               type = "l",
                               col = colrs[xx],
-                              ylim = range(a_frame[,xx]),
+                              #ylim = range(a_frame[,xx]),
                               ylab = "Some Bullshit Magnitude (dB Bullshit)",
                               xlab = "Azimuth (degrees or something))",
                               main = paste("Test Plot", file_name),
@@ -54,8 +57,9 @@ divisor <- 300
 
 
 plotaline(num_freq)
-for (i in seq(1, num_samp, by = num_samp/(2*divisor))) {
-  a_line(i)
+
+for (i in seq(num_freq, 1, by = -100)) {
+  add_a_line(i)
 }
 
 
