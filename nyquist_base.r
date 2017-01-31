@@ -1,9 +1,9 @@
 make_config <- function (rows, cols) { #}, row_names, col_names) {
-  a = array(0, 
+  a <- array(0, 
             dim = c(rows, cols),
             #dimnames = list(c(row_names), c(col_names))
   )
-  b = data.frame(a)
+  b <- data.frame(a)
   return(b)
 }
 
@@ -26,30 +26,26 @@ for( ii in amps ) {
   
 }
 jj <- 1:num_samp
-a_frame[jj,] = a_frame[jj,] *jj/200
+a_frame[jj,] <- a_frame[jj,] *jj/200
 
 colrs <- rainbow(num_freq)
 
-file_name = "Test Sines"
+file_name <- "Lots 'o Sines"
 plotaline <- function(xx) {plot(1:num_samp,a_frame[,xx], 
                                 type = "l",
                                 col = colrs[xx],
                                 ylim = range(a_frame[,xx]),#*(3/5),
                                 ylab = "Some Bullshit Magnitude (dB Bullshit)",
-                                xlab = "Azimuth (degrees or something))",
-                                main = paste("Test Plot", file_name),
+                                xlab = "Azimuth (degrees or something)",
+                                main = paste("Test Plot", file_name, sep = ' - '),
                                 bg = "white",
                                 axes = FALSE
 )}
 
 add_a_line <- function(xx) {lines(1:num_samp,a_frame[,xx], 
                               type = "l",
-                              col = colrs[xx],
-                              #ylim = range(a_frame[,xx]),
-                              ylab = "Some Bullshit Magnitude (dB Bullshit)",
-                              xlab = "Azimuth (degrees or something))",
-                              main = paste("Test Plot", file_name),
-                              bg = "white"
+                              col = colrs[xx]
+                          
 )}
 
 divisor <- 300
