@@ -34,7 +34,7 @@ for( ii in 1:num_freq) {
   a_frame[ii] <- drive_func(ii,5, az_deg)
   
 }
-jj <- 1:num_samp
+jj <- 1:num_freq 
 #jj <- jj[jj %% 10==0]
 
 a_frame[jj,] <- a_frame[jj,] *jj/200
